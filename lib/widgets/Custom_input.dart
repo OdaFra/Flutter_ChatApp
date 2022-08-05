@@ -8,7 +8,6 @@ class CustomInputWidget extends StatelessWidget {
   final bool isPassword;
 
   const CustomInputWidget({
-    super.key,
     required this.icon,
     required this.placeholder,
     required this.textController,

@@ -6,7 +6,6 @@ class ChatMessage extends StatelessWidget {
   final AnimationController animationController;
 
   const ChatMessage({
-    super.key,
     required this.texto,
     required this.uid,
     required this.animationController,
@@ -36,7 +35,7 @@ class ChatMessage extends StatelessWidget {
             color: const Color(0xff4d9ef6),
             borderRadius: BorderRadius.circular(20)),
         child: Text(
-          this.texto!,
+          texto,
           style: const TextStyle(color: Colors.white),
         ),
       ),
@@ -53,7 +52,7 @@ class ChatMessage extends StatelessWidget {
             color: const Color(0xffe4e5e8),
             borderRadius: BorderRadius.circular(20)),
         child: Text(
-          this.texto!,
+          texto,
           style: const TextStyle(color: Colors.black87),
         ),
       ),

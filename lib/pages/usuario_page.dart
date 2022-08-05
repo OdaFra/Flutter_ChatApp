@@ -1,5 +1,8 @@
-import 'package:chatapp/models/usuarios.dart';
 import 'package:flutter/material.dart';
+
+import 'package:chatapp/models/usuarios.dart';
+import 'package:chatapp/services/auth_services.dart';
+import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class UsuariosPage extends StatefulWidget {
@@ -22,11 +25,14 @@ class _UsuariosPageState extends State<UsuariosPage> {
 
   @override
   Widget build(BuildContext context) {
+    final autService = Provider.of<AuthService>(context);
+    final usuario = autService.usuario;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Mi nombre',
-          style: TextStyle(color: Colors.black54),
+        centerTitle: true,
+        title: Text(
+          usuario!.nombre,
+          style: const TextStyle(color: Colors.black54),
         ),
         elevation: 1,
         backgroundColor: Colors.white,
@@ -35,7 +41,11 @@ class _UsuariosPageState extends State<UsuariosPage> {
               Icons.exit_to_app,
               color: Colors.black54,
             ),
-            onPressed: () {}),
+            onPressed: () {
+              //TODO: Desconectarnos el socket server
+              Navigator.pushReplacementNamed(context, 'login');
+              AuthService.deleteToken();
+            }),
         actions: [
           Container(
             margin: const EdgeInsets.only(right: 10),
@@ -66,17 +76,17 @@ class _UsuariosPageState extends State<UsuariosPage> {
 
   // ignore: non_constant_identifier_names
   ListTile _UsuariosListTile(Usuario usuario) => ListTile(
-        title: Text(usuario.nombre!),
-        subtitle: Text(usuario.email!),
+        title: Text(usuario.nombre),
+        subtitle: Text(usuario.email),
         leading: CircleAvatar(
           backgroundColor: Colors.blue[100],
-          child: Text(usuario.nombre!.substring(0, 2)),
+          child: Text(usuario.nombre.substring(0, 2)),
         ),
         trailing: Container(
           width: 10,
           height: 10,
           decoration: BoxDecoration(
-              color: usuario.online! ? Colors.green[300] : Colors.red,
+              color: usuario.online ? Colors.green[300] : Colors.red,
               borderRadius: BorderRadius.circular(100)),
         ),
       );

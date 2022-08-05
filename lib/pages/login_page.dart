@@ -1,11 +1,16 @@
+import 'package:flutter/material.dart';
 import 'package:chatapp/widgets/Btn_azul.dart';
 import 'package:chatapp/widgets/Custom_input.dart';
-import 'package:flutter/material.dart';
+import 'package:chatapp/helpers/mostrarAlerta.dart';
+import 'package:provider/provider.dart';
 
+import '../services/auth_services.dart';
 import '../widgets/Label.dart';
 import '../widgets/Logo.dart';
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +53,7 @@ class __FormState extends State<_Form> {
   final passCtrl = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
     return Container(
       margin: const EdgeInsets.only(top: 40),
       padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -68,9 +74,23 @@ class __FormState extends State<_Form> {
           ),
           BotonAzul(
               texto: 'Ingresar',
-              onpressed: () {
-                print('Hola Mundo');
-              })
+              onpressed: authService.autenticando
+                  ? null
+                  : () async {
+                      FocusScope.of(context).unfocus();
+                      final loginOk = await authService.login(
+                          emailCtrl.text.trim(), passCtrl.text.trim());
+
+                      if (loginOk) {
+                        //TODO: Conectar al socket
+                        Navigator.pushReplacementNamed(context, 'usuarios');
+                      } else {
+                        //Mostrar alerta
+                        // ignore: use_build_context_synchronously
+                        mostraAlerta(context, 'Login incorrecto',
+                            'Revise sus credenciales nuevamente');
+                      }
+                    })
         ],
       ),
     );
