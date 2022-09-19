@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Logo extends StatelessWidget {
   final String titulo;
 
-  const Logo({required this.titulo});
+  const Logo({this.titulo});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class Logo extends StatelessWidget {
           children: [
             const Image(image: AssetImage('assets/tag-logo.png')),
             const SizedBox(height: 20),
-            Text(this.titulo, style: TextStyle(fontSize: 30))
+            Text(titulo, style: const TextStyle(fontSize: 30))
           ],
         ),
       ),

@@ -5,9 +5,9 @@ class Labels extends StatelessWidget {
   final String titulo;
   final String subtitulo;
   const Labels({
-    required this.ruta,
-    required this.titulo,
-    required this.subtitulo,
+    this.ruta,
+    this.titulo,
+    this.subtitulo,
   });
 
   @override
@@ -15,7 +15,7 @@ class Labels extends StatelessWidget {
     return Container(
       child: Column(children: [
         Text(
-          this.titulo,
+          titulo,
           style: const TextStyle(
             color: Colors.black54,
             fontSize: 15,
@@ -25,10 +25,10 @@ class Labels extends StatelessWidget {
         const SizedBox(height: 20),
         GestureDetector(
           onTap: () {
-            Navigator.pushReplacementNamed(context, this.ruta);
+            Navigator.pushReplacementNamed(context, ruta);
           },
           child: Text(
-            this.subtitulo,
+            subtitulo,
             style: TextStyle(
               color: Colors.blue[600],
               fontSize: 18,

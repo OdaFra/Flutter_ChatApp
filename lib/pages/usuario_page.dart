@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class UsuariosPage extends StatefulWidget {
-  const UsuariosPage({Key? key}) : super(key: key);
+  const UsuariosPage({Key key}) : super(key: key);
 
   @override
   State<UsuariosPage> createState() => _UsuariosPageState();
@@ -31,7 +31,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          usuario!.nombre,
+          usuario.nombre,
           style: const TextStyle(color: Colors.black54),
         ),
         elevation: 1,
@@ -59,7 +59,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
           onRefresh: _cargarUsuarios,
           header: WaterDropHeader(
               complete: Icon(Icons.check, color: Colors.blue[400]),
-              waterDropColor: Colors.blue[400]!),
+              waterDropColor: Colors.blue[400]),
           enablePullDown: true,
           child: _listViewUsuarios()),
     );

@@ -8,9 +8,9 @@ class CustomInputWidget extends StatelessWidget {
   final bool isPassword;
 
   const CustomInputWidget({
-    required this.icon,
-    required this.placeholder,
-    required this.textController,
+    this.icon,
+    this.placeholder,
+    this.textController,
     this.keyboardType = TextInputType.text,
     this.isPassword = false,
   });
@@ -31,15 +31,15 @@ class CustomInputWidget extends StatelessWidget {
             )
           ]),
       child: TextField(
-        controller: this.textController,
+        controller: textController,
         autocorrect: false,
-        obscureText: this.isPassword,
-        keyboardType: this.keyboardType,
+        obscureText: isPassword,
+        keyboardType: keyboardType,
         decoration: InputDecoration(
-            prefixIcon: Icon(this.icon),
+            prefixIcon: Icon(icon),
             focusedBorder: InputBorder.none,
             border: InputBorder.none,
-            hintText: this.placeholder),
+            hintText: placeholder),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:chatapp/services/socket_services.dart';
 import 'package:flutter/material.dart';
 import 'package:chatapp/widgets/Btn_azul.dart';
 import 'package:chatapp/widgets/Custom_input.dart';
@@ -9,7 +10,7 @@ import '../widgets/Label.dart';
 import '../widgets/Logo.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class LoginPage extends StatelessWidget {
         body: SafeArea(
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            child: Container(
+            child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.9,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -54,6 +55,8 @@ class __FormState extends State<_Form> {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
+    final socketService = Provider.of<SocketService>(context);
+
     return Container(
       margin: const EdgeInsets.only(top: 40),
       padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -80,9 +83,9 @@ class __FormState extends State<_Form> {
                       FocusScope.of(context).unfocus();
                       final loginOk = await authService.login(
                           emailCtrl.text.trim(), passCtrl.text.trim());
-
                       if (loginOk) {
-                        //TODO: Conectar al socket
+                        socketService.connect();
+                        // ignore: use_build_context_synchronously
                         Navigator.pushReplacementNamed(context, 'usuarios');
                       } else {
                         //Mostrar alerta
