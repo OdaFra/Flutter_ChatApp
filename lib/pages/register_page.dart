@@ -6,10 +6,13 @@ import 'package:chatapp/widgets/Btn_azul.dart';
 import 'package:chatapp/widgets/Custom_input.dart';
 import 'package:provider/provider.dart';
 
+import '../services/socket_services.dart';
 import '../widgets/Label.dart';
 import '../widgets/Logo.dart';
 
 class RegisterPage extends StatelessWidget {
+  const RegisterPage({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +20,7 @@ class RegisterPage extends StatelessWidget {
         body: SafeArea(
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            child: Container(
+            child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.9,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -54,6 +57,7 @@ class __FormState extends State<_Form> {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
+    final socketService = Provider.of<SocketService>(context);
 
     return Container(
       margin: const EdgeInsets.only(top: 40),
@@ -90,8 +94,7 @@ class __FormState extends State<_Form> {
                           passCtrl.text.trim());
 
                       if (registroOk == true) {
-                        //TODO: Conectar al socket server
-
+                        socketService.connect();
                         // ignore: use_build_context_synchronously
                         Navigator.pushReplacementNamed(context, 'usuarios');
                       } else {

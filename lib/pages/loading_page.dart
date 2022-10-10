@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../services/auth_services.dart';
+import '../services/socket_services.dart';
 
 class LoadingPage extends StatelessWidget {
+  const LoadingPage({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,10 +25,12 @@ class LoadingPage extends StatelessWidget {
 
   Future checKLoginState(BuildContext context) async {
     final authService = Provider.of<AuthService>(context, listen: false);
+    final socketService = Provider.of<SocketService>(context, listen: false);
     final autenticado = await authService.isLoggedIn();
+    // ignore: use_build_context_synchronously
 
-    if (autenticado) {
-      //TODO:conectar al socket server
+    if (autenticado == true) {
+      socketService.connect(); // ignore: use_build_context_synchronously
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
           context,
